@@ -9,7 +9,7 @@ let indexSimon = ref(null);
 const arrayClick = ref([]);
 const arrayUser = ref([]);
 
-let getHoveSimon = ref(false);
+let HoveSimon = ref(false);
 
 export function GamesSimon() {
   const { getRandomInt, delay } = Utilities();
@@ -26,24 +26,24 @@ export function GamesSimon() {
 
   const startHoveSimon = async () => {
     countRoundAdd();
-    getHoveSimon.value = true;
+    HoveSimon.value = true;
     for (let index = 1; getCountRound.value >= index; index++) {
+      await delay(getTimeHover.value);
       indexSimon.value = getRandomInt(1, 4);
       arrayClick.value.push(indexSimon.value);
       await ResetIndexSimon();
     }
-    await ResetIndexSimon();
-    getHoveSimon.value = false;
+    // await ResetIndexSimon();
+    HoveSimon.value = false;
   };
 
   return { getIndexSimon, startHoveSimon, getArrayClick };
 }
 
 export function GamesSimonClick() {
-  const { delay } = Utilities();
+  // const { delay } = Utilities();
   const { countRoundReset } = GamesRound();
   const { stopGames } = GamesButton();
-  // const getArrayUser = computed(() => arrayUser.value);
 
   const reset = () => {
     arrayUser.value = [];
@@ -54,7 +54,7 @@ export function GamesSimonClick() {
   const win = async () => {
     arrayUser.value = [];
     arrayClick.value = [];
-    await delay(1000);
+    // await delay(1000);
     await GamesSimon().startHoveSimon();
   };
   const validate = async () => {
@@ -73,5 +73,9 @@ export function GamesSimonClick() {
     }
   };
 
-  return { userSimonClick };
+  const getHoveSimon = computed(() => {
+    return HoveSimon.value;
+  });
+
+  return { userSimonClick, getHoveSimon };
 }
