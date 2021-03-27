@@ -23,7 +23,10 @@ export function GamesSimon() {
     await delay(getTimeHover.value);
     indexSimon.value = null;
   };
-
+  const audioGo = (index) =>{
+    let audio = new Audio(`http://www.kellyking.me/projects/simon/sounds/${index}.ogg`);
+    audio.play();
+  }
   const startHoveSimon = async () => {
     countRoundAdd();
     HoveSimon.value = true;
@@ -31,6 +34,7 @@ export function GamesSimon() {
       await delay(getTimeHover.value);
       indexSimon.value = getRandomInt(1, 4);
       arrayClick.value.push(indexSimon.value);
+      audioGo(indexSimon.value)
       await ResetIndexSimon();
     }
     // await ResetIndexSimon();
