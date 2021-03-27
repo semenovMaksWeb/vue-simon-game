@@ -24,7 +24,7 @@ export function GamesSimon() {
     indexSimon.value = null;
   };
   const audioGo = (index) =>{
-    let audio = new Audio(`http://www.kellyking.me/projects/simon/sounds/${index}.ogg`);
+    let audio = new Audio(require(`@/assets/audio/${index}.mp3`));
     audio.play();
   }
   const startHoveSimon = async () => {
